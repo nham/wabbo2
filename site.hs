@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend, mconcat)
+import           Data.Monoid ((<>), mconcat)
 import           Hakyll
 
 
@@ -36,8 +36,8 @@ main = hakyll $ do
         compile $ do                                                                
             posts <- recentFirst =<< loadAll "posts/*"                              
             let indexCtx =                                                          
-                    listField "posts" (postCtx tags) (return posts) `mappend`
-                    constField "title" "Posts"               `mappend`
+                    listField "posts" (postCtx tags) (return posts) <>
+                    constField "title" "Posts" <>
                     defaultContext                                                  
                                                                                     
             getResourceBody                                                         
@@ -54,8 +54,8 @@ main = hakyll $ do
         compile $ do                                                                
             posts <- recentFirst =<< loadAll pattern
             let ctx =                                                          
-                    listField "posts" (postCtx tags) (return posts) `mappend`
-                    constField "title" title               `mappend`
+                    listField "posts" (postCtx tags) (return posts) <>
+                    constField "title" title <>
                     defaultContext                                                  
                                                                                     
             makeItem ""                                                         
