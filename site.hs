@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+import           Data.Monoid (mappend, mconcat)
 import           Hakyll
 
 
@@ -21,20 +21,23 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
+    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
+            >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
             >>= relativizeUrls
+    
 
     match "index.html" $ do                                                         
         route idRoute                                                               
         compile $ do                                                                
             posts <- recentFirst =<< loadAll "posts/*"                              
             let indexCtx =                                                          
-                    listField "posts" postCtx (return posts) `mappend`              
-                    constField "title" "Posts"               `mappend`              
+                    listField "posts" (postCtx tags) (return posts) `mappend`
+                    constField "title" "Posts"               `mappend`
                     defaultContext                                                  
                                                                                     
             getResourceBody                                                         
@@ -44,11 +47,30 @@ main = hakyll $ do
 
 
 
+    tagsRules tags $ \tag pattern -> do
+        let title = "Posts tagged " ++ tag
+
+        route idRoute
+        compile $ do                                                                
+            posts <- recentFirst =<< loadAll pattern
+            let ctx =                                                          
+                    listField "posts" (postCtx tags) (return posts) `mappend`
+                    constField "title" title               `mappend`
+                    defaultContext                                                  
+                                                                                    
+            makeItem ""                                                         
+                >>= loadAndApplyTemplate "templates/post-list.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx          
+                >>= relativizeUrls
+
+
     match "templates/*" $ compile templateCompiler
 
 
 --------------------------------------------------------------------------------
-postCtx :: Context String
-postCtx =
-    dateField "date" "%B %e, %Y" `mappend`
-    defaultContext
+postCtx :: Tags -> Context String
+postCtx tags = mconcat
+    [ dateField "date" "%B %e, %Y"
+    , tagsField "tags" tags
+    , defaultContext
+    ]
