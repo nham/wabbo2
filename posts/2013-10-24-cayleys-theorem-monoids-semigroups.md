@@ -1,6 +1,6 @@
 ---
 title: Cayley's Theorem for Monoids and Semigroups
-tags: math
+tags: math, algebra
 ---
 
 Notational convention: $A^B$ is the set of all functions from $B \to A$.
