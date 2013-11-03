@@ -2,16 +2,12 @@
 title: About
 ---
 
-I'm Nick and I hope to use this website to facilitate my descent into crackpottery. I'm working on the AI problem, which really needs a better name because much of the work that goes under the heading of "AI" seems to be completely unrelated to this problem.
-
-Here are some websites that I participate on:
+I'm Nick and this website is a home for various emissions. Here are some websites that I participate on:
 
  - [github](http://www.github.com/nham)
  - [goodreads](https://www.goodreads.com/user/show/18824764-nick-hamann)
  - [google+](https://plus.google.com/u/0/107239411748947572422)
 
-What follows is absolute rubbish.
+I'm interested in "AI" (the philosophical kind, not the industrial kind), only I'm reasonably sure that we're still in the early pre-history of AI. The only way to work on a  problem whose solution you suspect is somewhere between several decades and multiple centuries away is to identify small sub-problems. To that end I'm working on a small sub-problem of the AI problem, the *mind problem*. The challenge is to understand minds in sufficient detail to have a basis for making a detailed outline of the AI problem. This small sub-problem is enormously challenging and I suspect I shall die without having made much progress on it.
 
-The AI problem might be defined as *how do we build things that think?* (this is somewhat different from conventional formulations, which emphasize building things that are "intelligent". TODO: write up something on this). We immediately have a difficulty here because we don't know what "thought" is (I would like to be wrong about this, please let me know if I am). This is not so out of the ordinary because many research problems have a similar structure: most of the difficulty lies in finding the right question to ask.
-
-I'm currently looking to simulate embodied entities in a physics engine. That is a very basic starting point, and clearly not enough because people have been looking at "embodied" approaches to AI since at least the 1980s (c.f. Rodney Brooks). In other words, chanting "embodiment!" does not suffice to make progress on the problem. I don't yet have an answer for what, specifically, comes next, other than looking at and trying to understand toy models. However, my sight is set on trying to make sense of what it means for an autonomous entity to "understand" space. This might involve a developmental approach, meaning that the entity always learns to "understand" space via initially clumsy investigations. "Time" seems like it could be another important notion to understand and may be as fundamental as "space" so that it doesn't really make sense to consider them in isolation. (Also these topics seem like good starting points precisely because they seem so fundamental that I scarcely know how to start breaking them down. Whereas I have some intuition about what "reasoning" is, for instance, I have no notion of what it would mean to understand space.)
+As you can probably guess, I'm a barrel of laughs.
