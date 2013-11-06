@@ -10,9 +10,7 @@ I hate the way Bell presents his axioms, so I'm going to mash up O'Connor's axio
 
  - $R$ is a commutative, unital ring
 
- - define **infinitesimals** to be the subset of $R$ of points that *cannot be distinguished from $0$*, meaning all $x$ such that it is not the case that $x \neq 0$. If this were classical logic, then zero would be the only infinitesimal.
-
- - $\forall x \neq 0, \exists y xy = 1$ (All non-infinitesimals are invertible)
+ - $\forall x \neq 0, \exists y xy = 1$ (All points distinguishable from zero are invertible)
 
  - There is a binary relation $<$ on $R$ which is irreflexive and transitive
 
@@ -44,7 +42,9 @@ d) clearly $0 < a \implies 0 < a^2$. $a < 0$ implies $-(-a) < 0$, which implies 
 
 *Exercise 1.2* - If $a < b$, then for all $x$ either $a < x$ or $x < b$. Hmmmmmmm.
 
+Define the **infinitesimals** of $R$ to be $\Delta = \{x \in R : x^2 = 0\}$. A part $A$ of $R$ is **microstable** if for all $a \in A$ and $\epsilon in D$, then $a + \epsilon \in A$.
 
-**Microcancellation:** If $a, b \in R$, ($\forall d \in D ad = bd$) implies $a = b$.
+**Microcancellation:** If $a, b \in R$, ($\forall d \in \Delta ad = bd$) implies $a = b$.
 
-*Proof:* The function $f: D \to R$ defined by $f(d) = ad$ can, by hypothesis, also be defined by $f(d) = bd$. The Kock-Lawvere axiom implies that $a = b$. $\Box$
+*Proof:* The function $f: \Delta \to R$ defined by $f(d) = ad$ can, by hypothesis, also be defined by $f(d) = bd$. The Kock-Lawvere axiom implies that $a = b$. $\Box$
+
