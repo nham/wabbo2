@@ -21,7 +21,7 @@ I find the "indexed family of set functions" view helpful, espectially for makin
 
 A necessary and sufficient condition for $X$ to be an $M$-subset of $A$ is that every hand of $A$ is closed under $X$. For another characterization, we introduce a notion that will become important later: the **orbit** of $a \in A$ is the subset of $A$ that action hands "move" $a$ to. In symbols: $\{a (m \phi) : m \in M\}$. So equivalently, $X$ is an $M$-subset if each orbit of $x$ is contained in $X$.
 
-Since monoid actions are algebraic objects, of course we're going to define homomorphisms between them. Specifically, and $M$-homomorphism $(A, M, \phi) \to (B, M, \psi)$ is any function $f: A \to B$ such that for all $m \in M$, (m \phi) f = f (m \psi)$. Another way of looking at it is that a monoid action is a certain kind of directed graph where the edges are labelled (and where some of the edges can have more than one label), and an $M$-homomorphism is just a graph homomorphism that maps similarly-labelled edges.
+Since monoid actions are algebraic objects, of course we're going to define homomorphisms between them. Specifically, and $M$-homomorphism $(A, M, \phi) \to (B, M, \psi)$ is any function $f: A \to B$ such that for all $m \in M$, $(m \phi) f = f (m \psi)$. Another way of looking at it is that a monoid action is a certain kind of directed graph where the edges are labelled (and where some of the edges can have more than one label), and an $M$-homomorphism is just a graph homomorphism that maps similarly-labelled edges.
 
 To be honest, I'm not sure I fully I grok this definition of $M$-homomorphism. Maybe a homomorphism is whatever makes the first isomorphism theorem work. Under that criteria, the above definition succeeds admirably.
 
