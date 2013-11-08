@@ -3,7 +3,7 @@ title: Axioms for smooth infinitesimal analysis
 tags: math, SIA
 ---
 
-Maybe a brief section on intuitionist proof strategies should go here? At the very least mention that proof by contrapositive works and how to prove that (A or B) implies C via (A implies C) and (B implies C).
+Maybe a brief section on intuitionist proof strategies should go here? At the very least mention how to prove that (A or B) implies C via (A implies C) and (B implies C).
 
 This is also used repeatedly: not(A or B) iff (not A and not B)
 
@@ -70,7 +70,8 @@ $$]a,b[ := \{ x \in R : a < x and x < b\}$$
 
 *Exercise 1.3* - $]a,b[ = \emptyset$ iff$ not $a < b$.
 
-*Proof:* If $]a,b[$ is empty, $a < b$ implies that $a < \frac{a + b}{1+1} < b$ since $1+1 > 1$. Hence $\not (a < b)$. Conversely, we prove by contrapositive: if $]a, b[$ isn't empty, then some $x$ is such that $a < x < b$, so $a < b$, which implies $\not \not (a < b)$.
+*Proof:* If $]a,b[$ is empty, $a < b$ implies that $a < \frac{a + b}{1+1} < b$ since $1+1 > 1$. Hence $\not (a < b)$. Conversely, if $
+not (a < b)$, assuming $x \in R$ we have that $(a < x)$ and $(x < b)$ implies $a < b$, a contradiction. So for all $x$, $\not (a < x \wedge x < b)$.
 
 ---
 
