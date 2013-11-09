@@ -88,4 +88,6 @@ If $]a,b[$ is empty, $a < b$ implies that $a < \frac{a + b}{1+1} < b$ since $1+1
 
  c) $y +z < x + z$ implies $y < x$, which is not true since we assumed $x \leq y$.
 
- d) TODO. I haven't managed to prove this yet :)
+ d) Rewrite the statement to be proved as: (\not (y < x) \wedge \not (t < 0) \implies \not (yt < xt)$. By the fragment of DeMorgan's law that works in intuitionist logic, we have $\not A \wedge \not B$ iff $\not (A \vee B)$. Also, $P \implies Q$ implies $ \not Q \implies \not P$. So we can prove that $yt < xt$ implies $y < x$ or $t < 0$.
+
+Now, $yt < xt$ implies $(x - y)t > 0$. This means that $t \neq 0$, so $t^{-1}$ exists. So $y = ytt^{-1} < xtt^{-1} = x$. $\Box$.
