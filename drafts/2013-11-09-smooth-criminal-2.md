@@ -38,13 +38,17 @@ If $x < a + \epsilon$ implies $0 < (a - x) + \epsilon$, so by proposition 6d $ (
 
 Conversely, $x < a$ means $0 < a - x$, and again by 6d $x < a + \epsilon$. We can similarly prove $b < x \implies b + \delta < x$. This proves the proposition. $\Box$
 
+**Corollary:** Any closed interval is microstable.
+
+*Proof:* If $x \in [a,b]$ and $\epsilon \in \Delta$, $x \in [a - \epsilon, b - \epsilon]$ as well, so $a \leq x + \epsilon \leq b$. $\Box$
 
 **Microcancellation:** If $a, b \in R$, ($\forall d \in \Delta ad = bd$) implies $a = b$.
 
 *Proof:* The function $f: \Delta \to R$ defined by $f(d) = ad$ can, by hypothesis, also be defined by $f(d) = bd$. The Kock-Lawvere axiom implies that $a = b$. $\Box$
 
+Let's revisit the Kock-Lawvere axiom. If we denote the set of all functions $\Delta \to R$ by $R^\Delta$ and define $\phi_{ab}(\epsilon) = a + b \epsilon$, then the Kock-Lawvere axiom says that $(a, b) \mapsto \phi_{ab}$ is a bijection $R^2 \to R^\Delta$.
 
-The KL axiom intuitively says that any function defined on a very small neighborhood of $0$ (that is to say, $\Delta$) is actually a "linear" function (linear in the sense of *resembling a straight line*, not in the since of homomorphisms of vector spaces). We can obtain a stronger result from the KL axiom: for any $f: R \to R$ and any $x \in R$, define a function $g_x: \Delta \to R$ by $g_x(d) = f(x+d)$. Then by KL, for all $d \in \Delta$ there's a unique $m \in R$ with $g_x(d) = g_x(0) + md$. This implies that $m$ is the unique number such that $f(x+d) = f(x) + md$ for all $d \in \Delta$.
+The Kock-Lawvere axiom intuitively says that any function defined on a very small neighborhood of $0$ (that is to say, $\Delta$) is actually a "linear" function (linear in the sense of *resembling a straight line*, not in the since of homomorphisms of vector spaces). We can obtain a stronger result from the KL axiom: for any $f: R \to R$ and any $x \in R$, define a function $g_x: \Delta \to R$ by $g_x(d) = f(x+d)$. Then by KL, for all $d \in \Delta$ there's a unique $m \in R$ with $g_x(d) = g_x(0) + md$. This implies that $m$ is the unique number such that $f(x+d) = f(x) + md$ for all $d \in \Delta$.
 
 The intuitive meaning of this last fact is that every function is differentiable at each point. Bell calls this the *Principle of Microstraightness*.
 
