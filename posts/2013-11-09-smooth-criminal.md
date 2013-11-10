@@ -35,7 +35,7 @@ I hate the way Bell presents his axioms, so I'm going to mash up O'Connor's axio
 
  - $x < y$ and $z > 0$ implies $xz < yz$
 
- - $if x \neq y$, $(x > y or x < y)$ (distinguishable points are comparable)
+ - if $x \neq y$ then $(x > y)$ or $(x < y)$ (distinguishable points are comparable)
 
  - For all $x$, $0 < x$ or $x < 1$
 
@@ -43,7 +43,7 @@ I hate the way Bell presents his axioms, so I'm going to mash up O'Connor's axio
  - $x > 0$ implies there's a unique $y > 0$ with $y^2 = x$ (square roots exist)
 
 **Kock-Lawvere axiom:**
- - Defining $\Delta = \{d \in R : d^2 = 0\}$, for every $f: \Delta \to R$ and for all $d \in \Delta$, there is a unique $a \in R$ with $f(d) = f(0) + da. The elements of $\Delta$ are called **infinitesimals.**
+ - Defining $\Delta = \{d \in R : d^2 = 0\}$, for every $f: \Delta \to R$ and for all $d \in \Delta$, there is a unique $a \in R$ with $f(d) = f(0) + da$. The elements of $\Delta$ are called **infinitesimals.**
 
 In words, Kock-Lawvere says that every function defined on $\Delta$ is uniquely determined by its value at zero and a certain number $a$, which we might call the *slope* of the function at zero.
 
@@ -67,7 +67,7 @@ $\Box$
 
 *Proof:* First assume $b > 0$. Then $b^{-1}$ exists, so for all $x$, $0 < xb^{-1}$ or $xb^{-1} < 1, which implies $0 < x$ or $x < b$ after multiplying both sides by $b$.
 
-Now, if $a < b$, $0 < x$ or $x < b - a$ (by the last paragraph) for all $x$. So in particular, for any $x$ we have $0 < x - a or $x - a < b - a$. After addition to both sides we obtain the desired statement. $\Box$
+Now, if $a < b$, $0 < x$ or $x < b - a$ (by the last paragraph) for all $x$. So in particular, for any $x$ we have $0 < x - a$ or $x - a < b - a$. After addition to both sides we obtain the desired statement. $\Box$
 
 Note that we've proven that for all $x \neq 0$, $0 < x^2$. Thus it is not the case that any $x \in \Delta$ is distinguishable from $0$. (Note that this also means that we canot divide by infinitesimals).
 
@@ -97,7 +97,7 @@ If $]a,b[$ is empty, $a < b$ implies that $a < \frac{a + b}{1+1} < b$ since $1+1
 
  c) $y +z < x + z$ implies $y < x$, which is not true since we assumed $x \leq y$.
 
- d) Rewrite the statement to be proved as: (\not (y < x) \wedge \not (t < 0) \implies \not (yt < xt)$. By the fragment of DeMorgan's law that works in intuitionist logic, we have $\not A \wedge \not B$ iff $\not (A \vee B)$. Also, $P \implies Q$ implies $ \not Q \implies \not P$. So we can prove that $yt < xt$ implies $y < x$ or $t < 0$.
+ d) Rewrite the statement to be proved as: $(\not (y < x) \wedge \not (t < 0) \implies \not (yt < xt)$. By the fragment of DeMorgan's law that works in intuitionist logic, we have $\not A \wedge \not B$ iff $\not (A \vee B)$. Also, $P \implies Q$ implies $ \not Q \implies \not P$. So we can prove that $yt < xt$ implies $y < x$ or $t < 0$.
 
 Now, $yt < xt$ implies $(x - y)t > 0$. This means that $t \neq 0$, so $t^{-1}$ exists. So $y = ytt^{-1} < xtt^{-1} = x$. $\Box$.
 
