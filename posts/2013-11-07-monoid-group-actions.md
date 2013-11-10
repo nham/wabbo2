@@ -41,12 +41,14 @@ And now for something different. We can define a group action $(H\G, G, \eta)$ o
 
 For any group action $(A, G, \phi)$ and $t \in A$, we can form a **stabilizer of $t$** defined by $G_t = \{ g \in G : t \phi(g) = t \}$, the subset of group elements whose hands fix $t$. It's clearly a subgroup of $G$ because the composition of two $t$-fixing maps also fixes $t$, the identity fixes $t$, and if a hand fixes $t$ its inverse must as well.
 
-**Proposition:** If $(A, G, \phi)$ is an irreducible group action on $A \neq \emptyset$, then it is isomorphic to the homogeneous space of any stabilizer $G_t$.
+**Proposition (Orbit-Stabilizer):** If $(A, G, \phi)$ is an irreducible group action on $A \neq \emptyset$, then it is isomorphic to the homogeneous space of any stabilizer $G_t$.
 
 *Proof:* It is most convenient to introduce notation $S_t^x$ for $t, x \in A$ to be the subset of $G$ of group elements whose hands map $t \mapsto x$. Note $G_t = S_t^t$. We prove that for all $s \in S_t^x$, $G_t s = S_t^x$: for any $g \in G_t$, $t [(gs) \phi] = t (g \phi) (s \phi) = t (s \phi) = x$, so $G_t s = S_t^x$. Conversely, if $s_1 \in S_t^x$, then $s_1 s^{-1} \in G_t$ and $(s_1 s^-1}) s = s_1$, so $S_t^x \subseteq G_t s$.
 
 Now, saying the group action is irreducible is equivalent to saying that the set being acted upon is non-empty and that group action is **transitive**, meaning for any $a, b \in A$ there's a $g \in G$ with $a (\phi g) = b$. This ensures that each $S_t^x$ is non-empty. 
 
 We've already proven above that we can define a group action $(G_t \ G, G, \eta)$ on the right cosets. We now define a $G$-homomorphism $f: A \to G_t \ G$ by $a \mapsto S_t^a$. This is well-defined because each $S_t^a$ is inhabited (cf. the previous paragraph), so that every $S_t^a$ is a right coset. This is a homomorphism because for any $g \in G, a \in A$, $a (g \phi) f = S_t^{a (g \phi)} = S_t^a (g \eta) = (af) (g \eta)$. $f$ is clearly injective since  if $S_t^a$ and $S_t^b$ are non-empty, they  must be distinct. Also surjective since every right coset is an $S_t^x$ for some $x$. This establishes the isomorphism. $\Box$
+
+Recall that any orbit of a group action is an irreducible $G$-set. The last proposition then is a slightly more abstract presentation of the orbit stabilizer theorem. It looks like it says more than that, but at this point I'm not sure I grasp the significance of homogeneous spaces.
 
 This post is too long. Join us next time for some other incomprehensible things.
