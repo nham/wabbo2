@@ -3,23 +3,32 @@ title: Elementary smooth infinitesimal analysis, part 1
 tags: math, SIA
 ---
 
-Maybe a brief section on intuitionist proof strategies should go here? At the very least mention how to prove that (A or B) implies C via (A implies C) and (B implies C).
-
-This is also used repeatedly: not(A or B) iff (not A and not B)
-
-Also, (A or B) and (not A) implies B, if I haven't made an error.
-
 [For background, see here](http://xorshammer.com/2008/08/11/smooth-infinitesimal-analysis/) or Bell's book *A Primer of Infinitesimal Analysis*.
+
+To preface this post properly I would need to write something up about intuitionist logic. Being familiar with classical logic, I had great difficulty understanding which proof strategies were valid in intuitionist logic. In lieu of a proper introduction, I mention a few points:
+
+ - to prove that (A or B) implies C, you must prove that A implies C and B implies C. It's virtually the same as in classical logic.
+
+ - The full DeMorgan's law does not hold, but this does: not(A or B) iff (not A and not B)
+
+ - (A or B) and (not A) implies B, if I'm not mistaken.
+
+ - Proof by contrapositive does *not* work, but (P implies Q) implies (not Q implies not P).
+
+I base a great deal of my understanding of intuitionist logic on the intuitonist natural deduction presented in chapter 2 of *Lectures on the Curry-Howard isomorphism* by Sørensen and Urzyczyn.
+
+And now, on to the show.
 
 I hate the way Bell presents his axioms, so I'm going to mash up O'Connor's axioms with Bell's exercises.
 
-
 **Algebra axioms**
+
  - $R$ is a commutative, unital ring
 
  - $\forall x \neq 0, \exists y xy = 1$ (All points distinguishable from zero are invertible)
 
 **Order axioms**
+
  - There is a binary relation $<$ on $R$ which is irreflexive and transitive
 
  - $x < y$ implies $x + z < y + z$
