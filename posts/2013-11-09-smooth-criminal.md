@@ -77,7 +77,7 @@ But neither can we prove that $\Delta = \{0\}$! Assuming so, by the KL axiom, fo
 
 We introduce some new definitions now.
 
-Define an interval $]a,b[ := \{ x \in R : a < x and x < b\}$. This is the SIA-analog of the open interval. To define the closed interval, we define a new relation $\leq$ on $R$ by $a \leq b$ iff $\neg (a < b)$. Then the closed interval $[a, b] := \{x \in R : a \leq x and x \leq b\}$.
+Define an interval $]a,b[ := \{ x \in R : a < x text{and} x < b\}$. This is the SIA-analog of the open interval. To define the closed interval, we define a new relation $\leq$ on $R$ by $a \leq b$ iff $\neg (a < b)$. Then the closed interval $[a, b] := \{x \in R : a \leq x \text{and} x \leq b\}$.
 
 
 **Proposition 3:** $]a,b[ = \emptyset$ iff $\neg a < b$ iff $b \leq a$.
