@@ -2,9 +2,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid ((<>), mconcat)
 import           Hakyll
+import           Text.Pandoc
 
 
 --------------------------------------------------------------------------------
+pandocMathCompiler = pandocCompilerWith readers writers
+    where
+        readers = def { readerExtensions = pandocExtensions }
+        writers = def { writerHTMLMathMethod = MathML (Just "") }
+
+
 main :: IO ()
 main = hakyll $ do
     match "images/*" $ do
@@ -17,7 +24,7 @@ main = hakyll $ do
 
     match "about.markdown" $ do
         route   $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
@@ -25,7 +32,7 @@ main = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocMathCompiler
             >>= loadAndApplyTemplate "templates/post.html"    (postCtx tags)
             >>= loadAndApplyTemplate "templates/default.html" (postCtx tags)
             >>= relativizeUrls
