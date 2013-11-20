@@ -77,7 +77,7 @@ But neither can we prove that $\Delta = \{0\}$! Assuming so, by the KL axiom, fo
 
 We introduce some new definitions now.
 
-Define an interval $]a,b[ := \{ x \in R : a < x text{and} x < b\}$. This is the SIA-analog of the open interval. To define the closed interval, we define a new relation $\leq$ on $R$ by $a \leq b$ iff $\neg (a < b)$. Then the closed interval $[a, b] := \{x \in R : a \leq x \text{and} x \leq b\}$.
+Define an interval $]a,b[ := \{ x \in R : a < x \text{ and } x < b\}$. This is the SIA-analog of the open interval. To define the closed interval, we define a new relation $\leq$ on $R$ by $a \leq b$ iff $\neg (a < b)$. Then the closed interval $[a, b] := \{x \in R : a \leq x \text{ and } x \leq b\}$.
 
 
 **Proposition 3:** $]a,b[ = \emptyset$ iff $\neg a < b$ iff $b \leq a$.
@@ -87,12 +87,14 @@ Define an interval $]a,b[ := \{ x \in R : a < x text{and} x < b\}$. This is the 
 If $]a,b[$ is empty, $a < b$ implies that $a < \frac{a + b}{1+1} < b$ since $1+1 > 1$. Hence $\neg (a < b)$. Conversely, if $\neg (a < b)$ and $x \in R$, we have that $(a < x)$ and $(x < b)$ implies $a < b$, a contradiction. So for all $x$, $\neg (a < x \wedge x < b)$. In other words, $]a, b[ = \emptyset$. $\Box$
 
 **Proposition 4:** 
+
  a) $\leq$ is reflexive and transitive
  b) $0 \leq 1$
  c) $x \leq y$ implies $x + z \leq y + z$
  d) ($x \leq y$ and $0 \leq t$) implies $xt \leq yt$
 
 *Proof:*
+
  a) $<$ is irreflexive, so $\leq$ is reflexive. Also, if $x \leq y$ and $y \leq z$, this by definition means $\neg (y < x)$ and $\neg (z < y)$. If $z < x$, by proposition 2 we must have $z < a$ or $a < x$ for every $a$. In particular, $z < y$ or $y < x$. But we have assumed that neither of these are provable, so $\neg (z < x$. In other words, $x \leq z$.
 
  b) $1 < 0$ implies $1 < 1$ by transitivity of $<$, so $0 \leq 1$
