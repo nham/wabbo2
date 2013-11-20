@@ -29,5 +29,9 @@ If $Y \subseteq X$, then $Y$ is maximal with respect to some property if adding 
 
 **Proposition:** A maximal linearly independent set is a spanning set. A minimal spanning set is linearly independent.
 
-*Proof:*
+*Proof:* If $S$ is a maximal linearly independent subset of $V$, then any $x \in V - S$, when added to $S$, yields a set that isn't linearly independent. So one element is in the span of the others, which gives us a scaling of $S + x$ that results in $0$. If the coefficient of $x$ is zero, this contradicts $S$ being linearly independent since one vector in $S$ would be in the span of the other vectors of $S$. so $x \in \text{span} S$.
+
+If $T$ spans $V$ and no proper subset does, then were some $x \in T$ to be in the span of $T - x$,  we would have that $T - x$ and $T$ have the same span, since every scaling of $T$ can be turned into a scaling of $T - x$ by absorbing $x$ into the coefficients of the other vectors. $\Box$
+
+A **basis** is a linearly independent spanning set. The last proposition says that maximal linearly independent sets and minimal spaning sets are bases.
 
