@@ -59,12 +59,25 @@ A **basis** is a linearly independent spanning set. The last proposition says th
 
 The next result is called the *Steinitz exchange lemma*. It's the lever we're going to use to prove that there is a well-defined notion of "dimension".
 
-**Lemma:** If $S$ is linearly independent and $x \in \text{span} S$, then there is a $u \in S$ with $\text{span}(S - u + x) = \text{span} S$ and $S - u + x$ is linearly independent.
+**Lemma:** If $S$ is linearly independent and $x \in \text{span} S$, $x \neq 0$, then there is a $u \in S$ with $\text{span}(S - u + x) = \text{span} S$ and $S - u + x$ is linearly independent.
 
-*Proof:* Find a $T \subseteq S$ such that $x \in \span{T}$ but $x$ is not in the span of any proper subset of $T$. Pick any $u \in T$. Since $x \notin \text{span}(T - u)$, $T - u + x$ is linearly independent. 
+*Proof:* Find a $T \subseteq S$, $T \neq \emptyset$ such that $x \in \span{T}$ but $x$ is not in the span of any proper subset of $T$. This is possible: starting from $S$, keep taking proper subsets that have $x$ in their span until there are none. 
 
-Now to prove that $S - u + x$ is LI. If a non-trivial combination of $S - u + x$ yields $0$, then the sum of a combination of $S - u$ and a scalar multiple of $x$ is zero. But $x$ is a linear combination of $T$, and if the coefficient of $u$ is non-zero in that combination, then $u \in \text{span}(S - u$)$, a contradiction. So $x$ is actually a linear combination of $T - u$, which contradicts how we chose $T$ and $u$. So $S - u + x$ is linearly independent.
+Pick any $u \in T$. Now we prove that $S - u + x$ is linearly independent. If a non-trivial combination of $S - u + x$ yields $0$, then the sum of a combination of $S - u$ and a scalar multiple of $x$ is zero. But $x$ is a linear combination of $T$, and if the coefficient of $u$ is non-zero in that combination, then $u \in \text{span}(S - u$)$, a contradiction. So $x$ is actually a linear combination of $T - u$, which contradicts how we chose $T$ and $u$. So $S - u + x$ is linearly independent.
 
 It is immediate that $\text{span}(S - u + x) \subseteq \text{span} S$. Conversely, since $x \in \text{span} T$ and for every linear combination of $T$ yielding $x$ we must have the coefficient of $u$ non-zero, then $u \in \text{span}(T - u + x)$. So any linear combination of $S$ with a non-zero coefficient attached to $u$ can be replaced by a linear combination from $S - u + x$. (Obviously any linear combination with a zero coefficient on $u$ is also in $\text{span}(S - u + x)$). $\Box$
 
+**Steinitz exchange lemma:** If $S$ is a finite, linearly independent subset of some vector space $V$ and $A$ is a finite, linearly independent subset of $\text{span} S$, then there is a subset $T$ of $S$ with $|T| = |S| - |A|$ such that $T \cup A$ is a basis for $\text{span} S$.
 
+*Proof:* We induct on $|A| = n$. The $n = 1$ is the previous lemma. If it's true for some $n$, then let $A$ be such that $|A| = n + 1$. Fix $a \in A$. Then by the induction hypothesis, some $T \subset S$ is such that $(A - a) \cup T$ is a basis for $\text{span} S$. So $a \in \text{span} (A - a) \cup T$, and by the previous lemma we can swap out one element of $(A - a) \cup T$ for $a$ without disturbing the span or the independence. Furthermore, we must be able to choose a $t \in T$ since the previous lemma relied on finding a set whose span contains the vector we are swapping in, but for which no proper subset's span contains it. Such a set could not be any subset of $A$, since then we would have $a \in \text{span} A$. So some subset $U \subset T$ is such that $A \cup U$ is a basis for $\text{span} S$. $\Box$
+
+**Corollary:** If $S$ is a finite basis for $V$ and $A$ is a linearly independent subset of $V$, then $|A| \leq |S|$. $\Box$
+
+**Corollary:** If $V$ is a vector space with a finite basis, any two bases have the same number of elements. $\Box$
+
+**Corollary:** If $V$ is a vector space with a finite basis and $A$ a linearly independent subset, then $A$ can be extended to a basis for $V$. $\Box$
+
+Note that by a proposition above, every finitely-spanned vector space has a finite basis. So we can say that any vector space with a finite spanning set is a **finite-dimensional vector space**, and that any finite dimensional vector space has a **dimension**, defined to be the cardinality of any basis set.
+
+
+and the coefficient of at least one $t \in T$ must be non-zero, otherwise it would contradict $A$ being independent. S
