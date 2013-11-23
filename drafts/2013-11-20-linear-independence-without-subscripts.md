@@ -35,3 +35,11 @@ If $T$ spans $V$ and no proper subset does, then were some $x \in T$ to be in th
 
 A **basis** is a linearly independent spanning set. The last proposition says that maximal linearly independent sets and minimal spaning sets are bases.
 
+**Proposition:** Every finite spanning set has a subset that is a basis.
+
+*Proof:* If $T$ is finite and spans $V$, then if it's not linearly independent, one element is (by definition) in the span of the others. So form a new set by removing that element and repeat the process. This must stop after finitely many iterations, and the result is a basis. $\Box$
+
+
+**Proposition:** If $S$ is linearly independent and $x \in \text{span} S$, then there is a $u \in S$ with $\text{span}(S - u + x) = \text{span} S$ and $S - u + x$ is linearly independent.
+
+*Proof:*
