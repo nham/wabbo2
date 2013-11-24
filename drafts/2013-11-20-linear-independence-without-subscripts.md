@@ -78,6 +78,3 @@ It is immediate that $\text{span}(S - u + x) \subseteq \text{span} S$. Conversel
 **Corollary:** If $V$ is a vector space with a finite basis and $A$ a linearly independent subset, then $A$ can be extended to a basis for $V$. $\Box$
 
 Note that by a proposition above, every finitely-spanned vector space has a finite basis. So we can say that any vector space with a finite spanning set is a **finite-dimensional vector space**, and that any finite dimensional vector space has a **dimension**, defined to be the cardinality of any basis set.
-
-
-and the coefficient of at least one $t \in T$ must be non-zero, otherwise it would contradict $A$ being independent. S
