@@ -64,14 +64,7 @@ Conversely, $x < a$ means $0 < a - x$, and again by 6d $x < a + \epsilon$. We ca
 $\Box$
 
 
-------
-this needs to be relocated to a different post.
+**Proposition 9:**  Two points $a, b \in R$ are called **neighbors** if $(a - b) \in \Delta$. The neighbor relation is reflexive and symmetric, but not transitive.
 
-Let's revisit the Kock-Lawvere axiom. If we denote the set of all functions $\Delta \to R$ by $R^\Delta$ and define $\phi_{ab}(\epsilon) = a + b \epsilon$, then the Kock-Lawvere axiom says that $(a, b) \mapsto \phi_{ab}$ is a bijection $R^2 \to R^\Delta$.
-
-The Kock-Lawvere axiom intuitively says that any function defined on a very small neighborhood of $0$ (that is to say, $\Delta$) is actually a "linear" function (linear in the sense of *resembling a straight line*, not in the sense of homomorphisms of vector spaces). We can obtain a stronger result from the KL axiom: for any $f: R \to R$ and any $x \in R$, define a function $g_x: \Delta \to R$ by $g_x(d) = f(x+d)$. Then by KL, for all $d \in \Delta$ there's a unique $m \in R$ with $g_x(d) = g_x(0) + md$. This implies that $m$ is the unique number such that $f(x+d) = f(x) + md$ for all $d \in \Delta$.
-
-The intuitive meaning of this last fact is that every function is differentiable at each point. Bell calls this the *Principle of Microstraightness*.
-
-We will actually *define* the derivative of a function $f$ at point $x$ to be the unique $m$ that we proved above. It will be denoted via the usual notation, $f'(x)$.
+*Proof:* $0 \in \Delta$, establishing reflexivity. If $(a - b) \in \Delta$, then $(b - a) = -(a - b)$ is too. Were transitivity to hold, then from knowing $(a - b) \in \Delta$ and $(b - c) \in \Delta$, we would know that $(a - c) \in \Delta$. But if we assume this to be true, then take any $\epsilon, \eta \in \Delta$. Let $a = \epsilon$, $b = 0$, $c = - \eta$. Transitivity implies that $\epsilon + \eta \in \Delta$, so we have just proved that $\Delta$ is microstable, contradicting 8d. $\Box$
 
