@@ -1,5 +1,5 @@
 ---
-title: Finite dimension in vector spaces
+title: Finite dimensional vector spaces
 tags: math, linear algebra
 ---
 
