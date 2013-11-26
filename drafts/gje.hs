@@ -38,7 +38,7 @@ gj_noswap :: Matrix -> Matrix
 gj_noswap m = gje 0 (length m) m
         where gje k l mat
                 | k == l    = mat
-                | otherwise = gje (k+1) l . annihilate_col k . normalize_row k $ mat
+                | otherwise = gje (k+1) l . nan_row k $ mat
 
 
 -- normalize a row so that the leading nonzero, if it exists, is 1
@@ -60,8 +60,30 @@ annihilate_col i m =
                  | k == i    = nihil (k+1) l mat
                  | otherwise = nihil (k+1) l $ saxpy k
                                                      (-(mat !! k !! j) / c)
-                                                     1 
+                                                     i 
                                                      mat
          in nihil 0 (length m) m
 
       where (a, b) = span (== 0) $ m !! i
+
+
+-- normalize and annihilate row
+nan_row :: Int -> Matrix -> Matrix
+nan_row i m = 
+    if b == [] then m
+    else let j = length a
+             c = head b
+             nihil k l mat
+                 | k == l    = mat
+                 | k == i    = nihil (k+1) l mat
+                 | otherwise = nihil (k+1) l $ saxpy k
+                                                     -(mat !! k !! j)
+                                                     i 
+                                                     mat
+         in nihil 0 (length m) $ scale i (1 / c) m
+
+      where (a, b) = span (== 0) $ m !! i
+
+
+showmat :: Matrix -> String
+showmat = foldl (\x y-> x ++ show y ++ "   ") ""
