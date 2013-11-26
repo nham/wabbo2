@@ -35,13 +35,18 @@ saxpy i c j m = (a ++) $ addv (head b) (smultv c row_j) : tail b
 
 
 gj_noswap :: Matrix -> Matrix
-gj_noswap = map vnlnz
+gj_noswap m = gje 0 (length m) m
+        where gje k l mat
+                | k == l    = mat
+                | otherwise = gje (k+1) l . annihilate_col k . normalize_row k $ mat
 
 
--- for a Vector, Normalize the Leading NonZero component
-vnlnz :: Vector -> Vector
-vnlnz v = a ++ smultv (1 / (head b)) b
-            where (a, b) = span (== 0) v
+-- normalize a row so that the leading nonzero, if it exists, is 1
+normalize_row :: Int -> Matrix -> Matrix
+normalize_row i mat = let a = dropWhile (== 0) $ mat !! i
+                      in if a == []
+                         then mat
+                         else scale i (1 / (head a)) mat
 
 -- given a row i, if column j is the first non-zero component of row i,
 -- zero out the rest of the column
