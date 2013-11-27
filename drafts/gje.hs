@@ -41,6 +41,16 @@ gj_noswap m = gje 0 (length m) m
                 | otherwise = gje (k+1) l . nan_row k $ mat
 
 
+{-
+phi :: Matrix -> Matrix
+phi m = boots 0 m
+        where mt = transpose m
+              boots i mat
+                | i == length m = mat
+                | vIsZero (mt !! i) = boots (i+1) mat
+                | otherwise = boots (i+1) 
+-}
+
 -- normalize a row so that the leading nonzero, if it exists, is 1
 normalize_row :: Int -> Matrix -> Matrix
 normalize_row i mat = let a = dropWhile (== 0) $ mat !! i
@@ -89,8 +99,11 @@ showmat :: Matrix -> String
 showmat = foldl (\x y-> x ++ show y ++ "   ") ""
 
 
-vIsZero :: Vector -> Bool
-vIsZero = foldl f True
-            where f False _ = False
-                  f _ 0 = True
-                  f _ _ = False
+-- hold tight, this is needed for GJE
+borp :: Int -> Vector -> (Bool, Int)
+borp n = foldl f (True, 0)
+            where f (b, i) q
+                    | b == False = (b, i)
+                    | q /= 0     = (False, i)
+                    | otherwise  = (True, i+1)
+
