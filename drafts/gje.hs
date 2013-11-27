@@ -77,7 +77,7 @@ nan_row i m =
                  | k == l    = mat
                  | k == i    = nihil (k+1) l mat
                  | otherwise = nihil (k+1) l $ saxpy k
-                                                     -(mat !! k !! j)
+                                                     (-(mat !! k !! j))
                                                      i 
                                                      mat
          in nihil 0 (length m) $ scale i (1 / c) m
@@ -87,3 +87,10 @@ nan_row i m =
 
 showmat :: Matrix -> String
 showmat = foldl (\x y-> x ++ show y ++ "   ") ""
+
+
+vIsZero :: Vector -> Bool
+vIsZero = foldl f True
+            where f False _ = False
+                  f _ 0 = True
+                  f _ _ = False
