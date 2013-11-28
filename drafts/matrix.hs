@@ -14,9 +14,9 @@ indexOf :: (Ix i, Bounded i) => i -> Int
 indexOf = index (minBound, maxBound)
 
 mDim :: Matrix Int e -> (Int, Int)
-mDim m@(Matrix a) = (z - x, y - w)
-                        where (w :-> x) = mStart m
-                              (y :-> z) = mEnd m
+mDim m = (z - x, y - w)
+             where (w :-> x) = mStart m
+                   (y :-> z) = mEnd m
 
 mStart, mEnd :: Matrix Int e -> Edge Int
 mStart (Matrix a) = fst $ bounds a
@@ -27,6 +27,9 @@ mRowStart m = let (x :-> y) = mStart m in x
 mRowEnd   m = let (x :-> y) = mEnd m in x
 mColStart m = let (x :-> y) = mStart m in y
 mColEnd   m = let (x :-> y) = mEnd m in y
+
+mRowRange m = [(mRowStart m)..(mRowEnd m)]
+mColRange m = [(mColStart m)..(mColEnd m)]
 
 mHgt, mWid :: Matrix Int e -> Int
 mHgt = fst . mDim
@@ -42,24 +45,24 @@ mFL l (i :-> j) = l !! i !! j
 
 scale :: Int -> Rational -> Matrix Int Rational -> Matrix Int Rational
 scale i c m@(Matrix a) = Matrix $ a // subs
-                where subs = [(i :-> j, (mCell m i j) * c) | j <- [0..(mWid m)]]
+                where subs = [(i :-> j, (mCell m i j) * c) | j <- mColRange m]
 
 swap :: Int -> Int -> Matrix Int e -> Matrix Int e
 swap c d m@(Matrix a) = Matrix $ a // subs
                 where f n = if n == c then d else c
                       subs = [(n :-> k, mCell m (f n) k) | n <- [c, d],
-                                                       k <- [0..(mWid m)]]
+                                                       k <- mColRange m]
 
 saxpy :: Int -> Rational -> Int -> Matrix Int Rational -> Matrix Int Rational
 saxpy i c j m@(Matrix a) = Matrix $ a // subs
                 where subs = [(i :-> k, (mCell m i k) + (mCell m j k) * c)
-                                        | k <- [0..(mWid m)]]
+                                        | k <- mColRange m]
 
 row :: Int -> Matrix Int e -> [(Edge Int, e)]
-row i m = [(i :-> j, mCell m i j) | j <- [0..(mWid m)]]
+row i m = [(i :-> j, mCell m i j) | j <- mColRange m]
 
 col :: Int -> Matrix Int e -> [(Edge Int, e)]
-col i m = [(j :-> i, mCell m j i) | j <- [0..(mHgt m)]]
+col i m = [(j :-> i, mCell m j i) | j <- mRowRange m]
 
 
 nan_row :: Int -> Matrix Int Rational -> Matrix Int Rational
@@ -69,19 +72,15 @@ nan_row i m
                                    then mat 
                                    else saxpy k (-(mCell mat k j)) i mat)
                         (scale i (1 / (head nz)) m)
-                        [start..end]
+                        (mRowRange m)
 
         where (z, nz) = findFirstNZ 0 i m
               j = length z
-              start = mRowStart m
-              end = mRowEnd m
 
 
 gje :: Matrix Int Rational -> Matrix Int Rational
-gje m = staircase start $ foldl (\mat i -> nan_row i mat) m [start..end]
-        where start = mRowStart m
-              end = mRowEnd m
-              staircase k = id
+gje m = staircase (mRowStart m) $ foldl (\mat i -> nan_row i mat) m (mRowRange m)
+        where staircase k = id
 
 -- first param is an offset. so "find first non-zero occuring not 
 -- before position k"
