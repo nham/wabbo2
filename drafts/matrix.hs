@@ -65,35 +65,38 @@ col i m = [(j :-> i, mCell m j i) | j <- [0..(mHgt m)]]
 nan_row :: Int -> Matrix Int Rational -> Matrix Int Rational
 nan_row i m
     | nz == []  = m  -- for a zero row, don't do anything
-    | otherwise = nihil i j end start $ scale i (1 / (head nz)) m
+    | otherwise = foldl (\mat k -> if k == i 
+                                   then mat 
+                                   else saxpy k (-(mCell mat k j)) i mat)
+                        (scale i (1 / (head nz)) m)
+                        [start..end]
 
-        where (z, nz) = findFirstNZ i m
+        where (z, nz) = findFirstNZ 0 i m
               j = length z
               start = mRowStart m
               end = mRowEnd m
 
 
-nihil :: Int -> Int -> Int -> Int -> Matrix Int Rational -> Matrix Int Rational
-nihil row col end k mat = nih k mat
-    where nih k mat
-            | k == end  = mat
-            | k == row  = nih (k+1) mat
-            | otherwise = nih (k+1) $ saxpy k (-(mCell mat k col)) row mat
+gje :: Matrix Int Rational -> Matrix Int Rational
+gje m = staircase start $ foldl (\mat i -> nan_row i m) m [start..end]
+        where start = mRowStart m
+              end = mRowEnd m
+              staircase k = id
+
+-- first param is an offset. so "find first non-zero occuring not 
+-- before position k"
+findFirstNZ :: Int -> Int -> Matrix Int Rational -> ([Rational], [Rational])
+findFirstNZ k i = span (== 0) . drop k . map snd . row i
 
 
-findFirstNZ :: Int -> Matrix Int Rational -> ([Rational], [Rational])
-findFirstNZ i = span (== 0) . map snd . row i
-
--- for each row j that isnt i, saxpy j (-cj) i, where cj = value in that column
-
-
+-- testing
 
 d = [[1,4,7,9],[2,2,3,2],[0,1,6,5],[9,3,4,3]] :: [[Rational]]
 e = mFL d
 m = matrix e (0 :-> 0, 3 :-> 3)
 nan1m = nan_row 1 m
 
-mnorm i m = let (z,nz) = findFirstNZ i m
+mnorm i m = let (z,nz) = findFirstNZ 0 i m
             in scale i (1 / (head nz)) m
 
 r0 = mnorm 1 m
@@ -105,3 +108,5 @@ n = matrix (mFL c) (0 :-> 0, 2 :-> 2)
 
 nan1n = nan_row 1 n
 s0 = mnorm 1 n
+
+doofus = gje n
