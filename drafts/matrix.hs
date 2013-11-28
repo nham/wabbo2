@@ -78,7 +78,7 @@ nan_row i m
 
 
 gje :: Matrix Int Rational -> Matrix Int Rational
-gje m = staircase start $ foldl (\mat i -> nan_row i m) m [start..end]
+gje m = staircase start $ foldl (\mat i -> nan_row i mat) m [start..end]
         where start = mRowStart m
               end = mRowEnd m
               staircase k = id
@@ -91,7 +91,7 @@ findFirstNZ k i = span (== 0) . drop k . map snd . row i
 
 -- testing
 
-d = [[1,4,7,9],[2,2,3,2],[0,1,6,5],[9,3,4,3]] :: [[Rational]]
+d = [[0,4,7,9],[2,2,3,2],[0,1,6,5],[9,3,4,3]] :: [[Rational]]
 e = mFL d
 m = matrix e (0 :-> 0, 3 :-> 3)
 nan1m = nan_row 1 m
@@ -106,7 +106,6 @@ r2 = saxpy 2 (-(mCell r1 2 0)) 1 r1
 c = [[1,4,7],[2,4,3],[3,1,6]] :: [[Rational]]
 n = matrix (mFL c) (0 :-> 0, 2 :-> 2)
 
-nan1n = nan_row 1 n
-s0 = mnorm 1 n
+nan0n = nan_row 0 n
 
 doofus = gje n
