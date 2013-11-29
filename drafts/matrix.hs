@@ -1,5 +1,6 @@
 import Data.Array ((!), bounds, listArray, Array, (//), Ix, range, index)
 import Data.Ratio ((%))
+import Debug.Trace
 
 data Edge i = i :-> i deriving (Eq, Ord, Bounded, Ix, Show)
 newtype Matrix i e = Matrix (Array (Edge i) e) deriving (Show)
@@ -48,7 +49,7 @@ scale i c m@(Matrix a) = Matrix $ a // subs
                 where subs = [(i :-> j, (mCell m i j) * c) | j <- mColRange m]
 
 swap :: Int -> Int -> Matrix Int e -> Matrix Int e
-swap c d m@(Matrix a) = Matrix $ a // subs
+swap c d m@(Matrix a) = trace ("Swap: " ++ show (c, d)) $ Matrix $ a // subs
                 where f n = if n == c then d else c
                       subs = [(n :-> k, mCell m (f n) k) | n <- [c, d],
                                                        k <- mColRange m]
@@ -74,37 +75,33 @@ nan_row i m
                         (scale i (1 / (head nz)) m)
                         (mRowRange m)
 
-        where (z, nz) = findFirstNZ 0 i m
-              j = length z
+        where (j, nz) = findFirstNZ 0 $ row i m
+
+
+nan_all m = foldl (\mat i -> nan_row i mat) m (mRowRange m)
 
 
 gje :: Matrix Int Rational -> Matrix Int Rational
-gje m = staircase (mRowStart m) $ foldl (\mat i -> nan_row i mat) m (mRowRange m)
-        where staircase k = id
+gje m = staircase (mRowStart m) (mColStart m) $ nan_all m
+    where staircase r c mat
+            | c > (mColEnd m) = mat
+            | otherwise = let (j, b) = findFirstNZ r $ col c mat
+                          in if b == []
+                             then staircase r (c+1) mat
+                             else staircase (r+1) (c+1) $ swap r j mat
 
 -- first param is an offset. so "find first non-zero occuring not 
 -- before position k"
-findFirstNZ :: Int -> Int -> Matrix Int Rational -> ([Rational], [Rational])
-findFirstNZ k i = span (== 0) . drop k . map snd . row i
+-- returns the position of the value and the list of values starting with
+-- the first nonzero
+findFirstNZ :: Int -> [(Edge Int, Rational)] -> (Int, [Rational])
+findFirstNZ k xs = (length a + k, b)
+                       where (a, b) = span (== 0) . drop k . map snd $ xs
 
 
 -- testing
 
-d = [[0,4,7,9],[2,2,3,2],[0,1,6,5],[9,3,4,3]] :: [[Rational]]
+d = [[0,4,7,9,0],[2,2,3,2,4],[4,4,6,4,8],[9,3,4,3,2]] :: [[Rational]]
 e = mFL d
-m = matrix e (0 :-> 0, 3 :-> 3)
-nan1m = nan_row 1 m
+m = matrix e (0 :-> 0, 3 :-> 4)
 
-mnorm i m = let (z,nz) = findFirstNZ 0 i m
-            in scale i (1 / (head nz)) m
-
-r0 = mnorm 1 m
-r1 = saxpy 0 (-(mCell r0 0 0)) 1 r0
-r2 = saxpy 2 (-(mCell r1 2 0)) 1 r1
-
-c = [[1,4,7],[2,4,3],[3,1,6]] :: [[Rational]]
-n = matrix (mFL c) (0 :-> 0, 2 :-> 2)
-
-nan0n = nan_row 0 n
-
-doofus = gje n
