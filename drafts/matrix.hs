@@ -37,41 +37,52 @@ mHgt = fst . mDim
 mWid = snd . mDim
 
 -- the regular notation is a bit unreadable.
-mCell m@(Matrix a) i j = a ! (i :-> j)
+(!!!) :: Matrix Int e -> (Int, Int) -> e
+(Matrix a) !!! (i, j) = a ! (i :-> j)
+
+row :: Int -> Matrix Int e -> [(Edge Int, e)]
+row i m = [(i :-> j, m !!! (i, j)) | j <- mColRange m]
+
+col :: Int -> Matrix Int e -> [(Edge Int, e)]
+col i m = [(j :-> i, m !!! (j, i)) | j <- mRowRange m]
 
 -- matrix From List. not really accurate since it actually converts a 2d-list
 -- into a function that can be passed to "matrix" function
-mFL :: [[Rational]] -> (Edge Int) -> Rational
+mFL :: [[e]] -> (Edge Int) -> e
 mFL l (i :-> j) = l !! i !! j
+
+
+-- Everything below is for Rational matrices only
+
+-- We could make the following more generic via some kind of Field typeclass and fixing these
+-- functions to work for any field, but since this is only supposed to be a toy I'm  not
+-- concerned with this here
 
 scale :: Int -> Rational -> Matrix Int Rational -> Matrix Int Rational
 scale i c m@(Matrix a) = Matrix $ a // subs
-                where subs = [(i :-> j, (mCell m i j) * c) | j <- mColRange m]
+        where subs = [(i :-> j, mij * c) | j <- mColRange m,
+                                           let mij = m !!! (i, j)]
 
 swap :: Int -> Int -> Matrix Int e -> Matrix Int e
-swap c d m@(Matrix a) = trace ("Swap: " ++ show (c, d)) $ Matrix $ a // subs
-                where f n = if n == c then d else c
-                      subs = [(n :-> k, mCell m (f n) k) | n <- [c, d],
-                                                       k <- mColRange m]
+swap c d m@(Matrix a) = Matrix $ a // subs
+        where t n = if n == c then d else c
+              subs = [(n :-> k, mtnk) | n <- [c, d],
+                                        k <- mColRange m,
+                                        let mtnk = m !!! (t n, k)]
 
 saxpy :: Int -> Rational -> Int -> Matrix Int Rational -> Matrix Int Rational
 saxpy i c j m@(Matrix a) = Matrix $ a // subs
-                where subs = [(i :-> k, (mCell m i k) + (mCell m j k) * c)
-                                        | k <- mColRange m]
-
-row :: Int -> Matrix Int e -> [(Edge Int, e)]
-row i m = [(i :-> j, mCell m i j) | j <- mColRange m]
-
-col :: Int -> Matrix Int e -> [(Edge Int, e)]
-col i m = [(j :-> i, mCell m j i) | j <- mRowRange m]
-
+        where subs = [(i :-> k, mik + mjk * c)
+                                | k <- mColRange m,
+                                  let mik = m !!! (i, k),
+                                  let mjk = m !!! (j, k)]
 
 nan_row :: Int -> Matrix Int Rational -> Matrix Int Rational
 nan_row i m
-    | nz == []  = m  -- for a zero row, don't do anything
+    | null nz   = m  -- for a zero row, don't do anything
     | otherwise = foldl (\mat k -> if k == i 
                                    then mat 
-                                   else saxpy k (-(mCell mat k j)) i mat)
+                                   else saxpy k (-(mat !!! (k, j))) i mat)
                         (scale i (1 / (head nz)) m)
                         (mRowRange m)
 
@@ -86,7 +97,7 @@ gje m = staircase (mRowStart m) (mColStart m) $ nan_all m
     where staircase r c mat
             | c > (mColEnd m) = mat
             | otherwise = let (j, b) = findFirstNZ r $ col c mat
-                          in if b == []
+                          in if null b
                              then staircase r (c+1) mat
                              else staircase (r+1) (c+1) $ swap r j mat
 
