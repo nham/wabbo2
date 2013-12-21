@@ -1,6 +1,8 @@
 import Data.Array ((!), bounds, listArray, Array, (//), Ix, range, index)
 import Data.Ratio ((%))
 import Debug.Trace
+import System.Random (randomR, getStdRandom)
+import Control.Monad (liftM2)
 
 data Edge i = i :-> i deriving (Eq, Ord, Bounded, Ix, Show)
 newtype Matrix i e = Matrix (Array (Edge i) e) deriving (Show)
@@ -93,13 +95,14 @@ nan_all m = foldl (\mat i -> nan_row i mat) m (mRowRange m)
 
 
 gje :: Matrix Int Rational -> Matrix Int Rational
-gje m = staircase (mRowStart m) (mColStart m) $ nan_all m
-    where staircase r c mat
-            | c > (mColEnd m) = mat
-            | otherwise = let (j, b) = findFirstNZ r $ col c mat
-                          in if null b
-                             then staircase r (c+1) mat
-                             else staircase (r+1) (c+1) $ swap r j mat
+gje m = until terminate staircase (mRowStart m, mColStart m, nan_all m)
+
+    where terminate (_, c, _) = c > (mColEnd m)
+          staircase (r, c, mat) = let (j, b) = findFirstNZ r $ col c mat
+                                  in if null b
+                                     then staircase $ (,,) r (c+1) mat
+                                     else staircase $ (,,) (r+1) (c+1) $ swap r j mat
+
 
 -- first param is an offset. so "find first non-zero occuring not 
 -- before position k"
@@ -112,7 +115,16 @@ findFirstNZ k xs = (length a + k, b)
 
 -- testing
 
-d = [[0,4,7,9,0],[2,2,3,2,4],[4,4,6,4,8],[9,3,4,3,2]] :: [[Rational]]
+d = [[0,4,7,9,0],[2,2,3,2,4],[4,4,7,4,8],[9,3,4,3,2]] :: [[Rational]]
 e = mFL d
 m = matrix e (0 :-> 0, 3 :-> 4)
 
+
+getRand :: (Integer, Integer) -> IO Integer
+getRand (a, b) = getStdRandom $ randomR (a, b)
+
+getNum = getRand (-99, 99)
+getDen = getRand (1, 99)
+
+getRandRational :: IO Rational
+getRandRational = liftM2 (%) getNum getDen
