@@ -22,12 +22,6 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match "about.markdown" $ do
-        route   $ setExtension "html"
-        compile $ pandocMathCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
-
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
 
     match "posts/*" $ do
